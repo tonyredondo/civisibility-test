@@ -29,11 +29,22 @@ jobs:
       run: |
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
-        
+
+# Restoring dependencies resolves the issue of not having anything in the standard output
+    - name: Restore dependencies
+      run: dotnet restore
+
+# Running the `dd-trace` command without `DD_AGENT_HOST` neither `DD_TRACE_AGENT_PORT` 
+# the container running as a service is bind to `localhost`
     - name: Test
       run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-restore
       env:
         AWS_REGION: "eu-west-1"
-        DD_AGENT_HOST: datadog-agent
-        DD_TRACE_AGENT_PORT: 8126
-        DD_TRACE_DEBUG: true
+#        DD_AGENT_HOST: datadog-agent
+#        DD_TRACE_AGENT_PORT: 8126
+#        DD_TRACE_DEBUG: true
+
+# In Github actions the Datadog Agent can shutdown before finishing sending all test spans.
+# We ensure the flush by sleeping before finishing the workflow.
+    - name: Sleep 10s
+      run: sleep 10s
