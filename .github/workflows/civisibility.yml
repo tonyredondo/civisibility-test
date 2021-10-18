@@ -38,7 +38,10 @@ jobs:
       env:
         AWS_REGION: "eu-west-1"
         DD_TRACE_LOG_DIRECTORY: ${{ github.workspace }}
-        
+
+    - name: Sleep 10s
+      run: sleep 10s
+
     - name: Look at logs
       run: ls
         
