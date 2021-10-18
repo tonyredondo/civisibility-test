@@ -29,8 +29,8 @@ jobs:
       run: |
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
-        mkdir /var/log/datadog
-        mkdir /var/log/datadog/dotnet
+        sudo mkdir /var/log/datadog
+        sudo mkdir /var/log/datadog/dotnet
         
     - name: Restore dependencies
       run: dotnet restore
