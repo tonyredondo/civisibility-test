@@ -42,7 +42,10 @@ jobs:
     - name: Look at logs
       run: ls
         
-    - name: Look at logs
+    - name: Look at managed logs
       run: cat dotnet-tracer-managed-dotnet*
+      
+    - name: Look at native logs
+      run: cat dotnet-tracer-native-dotnet*
       
       
