@@ -37,7 +37,8 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Test
-      run: dd-trace --dd-service=TestService --dd-env=ci --agent-url=http://datadog-agent:8126 -- dotnet test --no-build
+      #run: dd-trace --dd-service=TestService --dd-env=ci --agent-url=http://datadog-agent:8126 -- dotnet test --no-build
+      run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-build
       env:
         AWS_REGION: "eu-west-1"
         DD_TRACE_DEBUG: true
