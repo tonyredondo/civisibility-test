@@ -2,7 +2,6 @@ name: CIVisibility
 
 on:
   push:
-  pull_request:
 
 jobs:
   test:
@@ -37,13 +36,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal
-
     - name: Test
-      run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-restore
+      run: dd-trace --dd-service=TestService --dd-env=ci --agent-url=http://datadog-agent:8126 -- dotnet test --no-build
       env:
         AWS_REGION: "eu-west-1"
-        DD_AGENT_HOST: datadog-agent
-        DD_TRACE_AGENT_PORT: 8126
         DD_TRACE_DEBUG: true
