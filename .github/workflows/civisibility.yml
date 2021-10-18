@@ -30,15 +30,6 @@ jobs:
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
         
-#    - name: Restore dependencies
-#      run: dotnet restore
-      
-#    - name: Build
-#      run: dotnet build --no-restore
-      
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal
-
     - name: Test
       run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-restore
       env:
