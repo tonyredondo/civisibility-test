@@ -2,9 +2,6 @@ name: CIVisibility
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   test:
@@ -32,20 +29,17 @@ jobs:
       run: |
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
-        
-#    - name: Restore dependencies
-#      run: dotnet restore
-      
-#    - name: Build
-#      run: dotnet build --no-restore
-      
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal
+
+    - name: Restore dependencies
+      run: dotnet restore
 
     - name: Test
       run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-restore
       env:
         AWS_REGION: "eu-west-1"
-        DD_AGENT_HOST: datadog-agent
-        DD_TRACE_AGENT_PORT: 8126
-        DD_TRACE_DEBUG: true
+#        DD_AGENT_HOST: datadog-agent
+#        DD_TRACE_AGENT_PORT: 8126
+#        DD_TRACE_DEBUG: true
+
+    - name: Sleep 10s
+      run: sleep 10s
