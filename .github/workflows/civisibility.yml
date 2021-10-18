@@ -48,6 +48,5 @@ jobs:
     - name: Look at logs
       run: |
         cd /var/log/datadog/dotnet
-        ls 
-        cat *
+        ls
         
