@@ -29,15 +29,6 @@ jobs:
       run: |
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
-        
-#    - name: Build
-#      run: dotnet build
-      
-#    - name: Test
-#      run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-build
-#      env:
-#        AWS_REGION: "eu-west-1"
-#        DD_TRACE_LOG_DIRECTORY: ${{ github.workspace }}
 
     - name: Restore dependencies
       run: dotnet restore
@@ -50,5 +41,5 @@ jobs:
 #        DD_TRACE_AGENT_PORT: 8126
 #        DD_TRACE_DEBUG: true
 
-    - name: Sleep 10s
-      run: sleep 10s
+    - name: Sleep 5s
+      run: sleep 5s
