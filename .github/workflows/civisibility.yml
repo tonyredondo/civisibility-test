@@ -29,9 +29,6 @@ jobs:
       run: |
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
-        sudo mkdir /var/log/datadog
-        sudo mkdir /var/log/datadog/dotnet
-        sudo chmod 777 ./
         
     - name: Restore dependencies
       run: dotnet restore
@@ -44,9 +41,8 @@ jobs:
       env:
         AWS_REGION: "eu-west-1"
         DD_TRACE_DEBUG: true
+        DD_TRACE_LOG_DIRECTORY: ${{ github.workspace }}
         
     - name: Look at logs
-      run: |
-        cd /var/log/datadog/dotnet
-        ls
+      run: ls
         
