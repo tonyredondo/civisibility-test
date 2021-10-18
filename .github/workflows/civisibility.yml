@@ -30,18 +30,13 @@ jobs:
         dotnet tool install -g dd-trace
         echo "${HOME}/.dotnet/tools" >> $GITHUB_PATH
         
-    - name: Restore dependencies
-      run: dotnet restore
-      
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build
       
     - name: Test
-      #run: dd-trace --dd-service=TestService --dd-env=ci --agent-url=http://datadog-agent:8126 -- dotnet test --no-build
       run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-build
       env:
         AWS_REGION: "eu-west-1"
-        DD_TRACE_DEBUG: true
         DD_TRACE_LOG_DIRECTORY: ${{ github.workspace }}
         
     - name: Look at logs
