@@ -39,6 +39,9 @@ jobs:
 #        AWS_REGION: "eu-west-1"
 #        DD_TRACE_LOG_DIRECTORY: ${{ github.workspace }}
 
+    - name: Restore dependencies
+      run: dotnet restore
+
     - name: Test
       run: dd-trace --dd-service=TestService --dd-env=ci -- dotnet test --no-restore
       env:
